@@ -24,3 +24,14 @@ jobs:
       run: npm run test:unit
     - name: Display SoftUni username
       run: echo "boris911"
+
+  deploy:
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to production on Render.com
+        uses: fastndead/render-deploy-action@0.0.8-pre
+        with:
+          service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.MY_RENDER_API_KEY }}
+          wait-for-success: true
